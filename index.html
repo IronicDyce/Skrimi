@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Skrimi — Web Data, Delivered</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<meta name="description" content="Skrimi turns the public web into clean, structured data — on-demand scrapes or fully managed data feeds. Reliable, affordable, ready when you are." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0b1020; --bg2:#0f1730; --card:#141d38; --line:#243154;
+    --text:#e8ecf6; --muted:#9aa6c4; --accent:#22d3ee; --accent2:#6366f1;
+    --radius:16px; --max:1100px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+  .btn{display:inline-block;padding:13px 24px;border-radius:12px;font-weight:600;font-size:15px;transition:.2s;cursor:pointer;border:none}
+  .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06101e}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(34,211,238,.25)}
+  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .accent{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  section{padding:90px 0}
+  .eyebrow{color:var(--accent);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:13px;margin-bottom:14px}
+  h2{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-.02em;line-height:1.15}
+  .sub{color:var(--muted);font-size:18px;max-width:620px;margin-top:14px}
+
+  /* nav */
+  header{position:sticky;top:0;z-index:50;background:rgba(11,16,32,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.02em}
+  .logo .dot{width:26px;height:26px}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{color:var(--muted);font-size:15px;font-weight:500}
+  .nav-links a:hover{color:var(--text)}
+  .menu-btn{display:none}
+
+  /* hero */
+  .hero{padding:110px 0 80px;text-align:center;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(circle,rgba(99,102,241,.18),transparent 60%);z-index:0}
+  .hero .wrap{position:relative;z-index:1}
+  .hero h1{font-size:clamp(38px,6vw,64px);font-weight:800;letter-spacing:-.03em;line-height:1.05}
+  .hero p{color:var(--muted);font-size:20px;max-width:640px;margin:22px auto 0}
+  .cta-row{display:flex;gap:14px;justify-content:center;margin-top:34px;flex-wrap:wrap}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border:1px solid var(--line);border-radius:999px;font-size:13px;color:var(--muted);margin-bottom:26px}
+  .pill .ping{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(34,211,238,.18)}
+
+  /* stat strip */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:34px 0;margin-top:60px}
+  .stat h3{font-size:30px;font-weight:800}.stat p{color:var(--muted);font-size:14px}
+
+  /* grid cards */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px;transition:.25s}
+  .card:hover{border-color:var(--accent);transform:translateY(-4px)}
+  .card .ic{width:46px;height:46px;border-radius:12px;background:rgba(34,211,238,.12);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px}
+  .card h3{font-size:19px;font-weight:700;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:15px}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:50px;counter-reset:s}
+  .step{position:relative;padding-top:18px}
+  .step::before{counter-increment:s;content:counter(s);display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06101e;font-weight:800;margin-bottom:14px}
+  .step h3{font-size:17px;font-weight:700;margin-bottom:6px}.step p{color:var(--muted);font-size:14px}
+
+  /* pricing */
+  .pricing{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:50px;max-width:840px;margin-left:auto;margin-right:auto}
+  .price{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:34px;position:relative}
+  .price.feature{border-color:var(--accent);box-shadow:0 0 40px rgba(34,211,238,.08)}
+  .price .tag{position:absolute;top:-12px;right:24px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06101e;font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px}
+  .price h3{font-size:20px;font-weight:700}
+  .price .amt{font-size:42px;font-weight:800;margin:10px 0 2px}.price .amt span{font-size:16px;color:var(--muted);font-weight:500}
+  .price .note{color:var(--muted);font-size:14px;margin-bottom:22px}
+  .price ul{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:26px}
+  .price li{display:flex;gap:10px;font-size:15px;color:var(--text)}
+  .price li::before{content:"✓";color:var(--accent);font-weight:800}
+  .price .btn{width:100%;text-align:center}
+  .ent{text-align:center;color:var(--muted);margin-top:24px;font-size:15px}
+
+  /* cta band */
+  .band{background:linear-gradient(135deg,rgba(34,211,238,.1),rgba(99,102,241,.12));border:1px solid var(--line);border-radius:24px;padding:56px;text-align:center}
+
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:14px}
+  .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .foot a{color:var(--muted)}.foot a:hover{color:var(--text)}
+
+  /* faq */
+  .faqwrap{max-width:780px;margin:46px auto 0}
+  details.faq{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0 22px;margin-bottom:12px}
+  details.faq summary{cursor:pointer;padding:18px 0;font-weight:600;font-size:16px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  details.faq summary::-webkit-details-marker{display:none}
+  details.faq summary::after{content:"+";color:var(--accent);font-size:24px;line-height:1}
+  details.faq[open] summary::after{content:"\2212"}
+  details.faq p{color:var(--muted);font-size:15px;padding:0 0 20px}
+
+  @media(max-width:860px){
+    .nav-links{display:none}
+    .grid,.steps,.pricing,.stats{grid-template-columns:1fr 1fr}
+    section{padding:64px 0}
+  }
+  @media(max-width:560px){
+    .grid,.steps,.pricing,.stats{grid-template-columns:1fr}
+    .hero{padding:70px 0 50px}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="skg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#6366f1"/></linearGradient></defs></svg>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="logo"><svg class="dot" viewBox="0 0 48 48" aria-hidden="true"><g fill="none" stroke="url(#skg)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 13 L6 24 L16 35"/><path d="M32 13 L42 24 L32 35"/><path d="M28 9 L20 39"/></g></svg>Skrimi</div>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#usecases">Use cases</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact" class="btn btn-primary" style="padding:9px 18px">Get a quote</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="pill"><span class="ping"></span> Now onboarding new clients</span>
+    <h1>Turn the public web into <span class="accent">clean, structured data.</span></h1>
+    <p>Skrimi collects publicly available web data and delivers it to you ready to use — a one-time pull or a fully managed, always-fresh feed. You focus on decisions; we handle the data.</p>
+    <div class="cta-row">
+      <a href="#contact" class="btn btn-primary">Get a free quote</a>
+      <a href="#pricing" class="btn btn-ghost">See pricing</a>
+    </div>
+    <p style="color:var(--muted);font-size:14px;margin-top:16px">Free consultation · No obligation · Reply within one business day</p>
+
+    <div class="stats">
+      <div class="stat"><h3>100%</h3><p>Public data, lawfully collected</p></div>
+      <div class="stat"><h3>CSV · JSON · API</h3><p>Delivered your way</p></div>
+      <div class="stat"><h3>Daily–Monthly</h3><p>Refresh on your schedule</p></div>
+      <div class="stat"><h3>Hands-off</h3><p>Monitored & maintained</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="eyebrow">What we do</div>
+    <h2>Data extraction, without the headache.</h2>
+    <p class="sub">Building and maintaining scrapers is a full-time job. We do it for you — reliably, at scale, and at a fraction of the cost of doing it in-house.</p>
+    <div class="grid">
+      <div class="card"><div class="ic">🎯</div><h3>On-demand scrapes</h3><p>Need a dataset once? Tell us the site and fields — we deliver a clean, structured export. No subscription required.</p></div>
+      <div class="card"><div class="ic">🔄</div><h3>Managed data feeds</h3><p>Always-fresh data on your schedule — daily, weekly, or monthly. We monitor, fix breakage, and keep it flowing.</p></div>
+      <div class="card"><div class="ic">📊</div><h3>Price &amp; market intelligence</h3><p>Track competitor pricing, catalogs, and listings across sites. Know the market before your competitors do.</p></div>
+      <div class="card"><div class="ic">🧩</div><h3>Custom schema &amp; enrichment</h3><p>Get data shaped exactly how your systems expect it — normalized, deduped, and joined to your keys.</p></div>
+      <div class="card"><div class="ic">⚡</div><h3>API access</h3><p>Pull your data programmatically through a dedicated endpoint, or have it dropped to CSV, Google Sheets, or S3.</p></div>
+      <div class="card"><div class="ic">🛡️</div><h3>Reliable &amp; compliant</h3><p>We collect only publicly available information and respect takedown requests. Stable pipelines, monitored 24/7.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section id="usecases" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="eyebrow">Use cases</div>
+    <h2>If it's on a public website, we'll structure it.</h2>
+    <p class="sub">Teams across industries use Skrimi to turn scattered web data into decisions.</p>
+    <div class="grid">
+      <div class="card"><div class="ic">🏷️</div><h3>Price &amp; competitor monitoring</h3><p>Track competitor prices, promotions, and stock across retailers — as often as daily.</p></div>
+      <div class="card"><div class="ic">📦</div><h3>Product &amp; catalog data</h3><p>Pull full catalogs — specs, images, descriptions, SKUs — normalized to your schema.</p></div>
+      <div class="card"><div class="ic">🏠</div><h3>Real estate &amp; listings</h3><p>Listings, prices, and property details aggregated from multiple sources into one feed.</p></div>
+      <div class="card"><div class="ic">💼</div><h3>Job postings</h3><p>Monitor roles, titles, locations, and pay across job boards and company career pages.</p></div>
+      <div class="card"><div class="ic">🔎</div><h3>Lead &amp; directory research</h3><p>Build prospect lists from public directories and listings — clean, deduped, ready to use.</p></div>
+      <div class="card"><div class="ic">⭐</div><h3>Reviews &amp; ratings</h3><p>Aggregate public reviews to track sentiment and benchmark against competitors.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="eyebrow">How it works</div>
+    <h2>From request to dataset in four steps.</h2>
+    <div class="steps">
+      <div class="step"><h3>Tell us what you need</h3><p>Share the site(s), the fields you want, and how often. We scope it and send a quote.</p></div>
+      <div class="step"><h3>We build the pipeline</h3><p>We engineer and test the scraper, handle the hard parts, and validate the data quality.</p></div>
+      <div class="step"><h3>Data, delivered</h3><p>Receive clean CSV/JSON/API output — on a one-time basis or your chosen schedule.</p></div>
+      <div class="step"><h3>We keep it running</h3><p>Sites change; we monitor and fix breakage so your feed never goes stale.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY SKRIMI -->
+<section id="why" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="eyebrow">Why Skrimi</div>
+    <h2>The data, minus the overhead.</h2>
+    <div class="grid">
+      <div class="card"><div class="ic">💸</div><h3>Transparent pricing</h3><p>Real numbers on the page — no "request a quote" runaround. You know the baseline before you reach out.</p></div>
+      <div class="card"><div class="ic">🤝</div><h3>Founder-led &amp; direct</h3><p>You work straight with the engineer who builds your scraper — no sales funnels, no account-manager telephone.</p></div>
+      <div class="card"><div class="ic">🧰</div><h3>Zero tooling for you</h3><p>No proxies, no servers, no maintenance. We own the whole pipeline; you just receive the data.</p></div>
+      <div class="card"><div class="ic">🔓</div><h3>No lock-in</h3><p>Month-to-month, billed in arrears. Cancel anytime — we earn the renewal every month.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow">Pricing</div>
+    <h2>Simple, transparent, per-page.</h2>
+    <p class="sub" style="margin-left:auto;margin-right:auto">No hidden fees. Pick a one-time pull or an ongoing feed. Billed monthly, in arrears.</p>
+    <div class="pricing">
+      <div class="price">
+        <h3>On-Demand</h3>
+        <div class="amt">$400<span> / scrape</span></div>
+        <div class="note">One website, one-time pull</div>
+        <ul>
+          <li>Setup included</li>
+          <li>Up to 10,000 pages included</li>
+          <li>From $0.05 / additional page</li>
+          <li>CSV / JSON delivery</li>
+          <li>No subscription required</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost">Request a scrape</a>
+      </div>
+      <div class="price feature">
+        <span class="tag">Most popular</span>
+        <h3>Business</h3>
+        <div class="amt">$200<span> / mo · per site</span></div>
+        <div class="note">Recurring, always-fresh data</div>
+        <ul>
+          <li>Weekly or monthly refresh</li>
+          <li>Up to 10,000 pages / month</li>
+          <li>From $0.05 / additional page</li>
+          <li>Monitoring &amp; breakage fixes</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary">Start a feed</a>
+      </div>
+    </div>
+    <p class="sub" style="margin:26px auto 0;max-width:680px;font-size:15px">Pricing is based on <strong style="color:var(--text)">easy-to-medium difficulty</strong> scraping. The rates above are <strong style="color:var(--text)">baseline estimates, not final quotes</strong> — your total depends on the scope and complexity of your scrape request.</p>
+    <p class="ent">Need multiple sites, high volume, or an API + SLA? <a href="#contact" class="accent" style="font-weight:600">Talk to us about Enterprise →</a></p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:var(--bg2)">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow">FAQ</div>
+    <h2>Questions, answered.</h2>
+    <div class="faqwrap" style="text-align:left">
+      <details class="faq"><summary>Is web scraping legal?</summary><p>We collect only publicly available information — data anyone can view without logging in — and we respect takedown requests. We don't access password-protected areas or harvest personal data. You're responsible for ensuring your use of the delivered data complies with applicable laws and the source's terms.</p></details>
+      <details class="faq"><summary>What if a website changes and the scraper breaks?</summary><p>On Business (recurring) plans we monitor your feeds and fix breakage as part of the subscription — your data keeps flowing. For one-time scrapes, we deliver a validated dataset at the time of the pull.</p></details>
+      <details class="faq"><summary>How do I receive the data?</summary><p>However works for you — CSV, JSON, a Google Sheet, an S3 drop, or a dedicated API endpoint.</p></details>
+      <details class="faq"><summary>How fast is turnaround?</summary><p>Most one-time scrapes are delivered within a few business days, depending on complexity. We'll give you a timeline with your free quote.</p></details>
+      <details class="faq"><summary>What does it cost?</summary><p>On-Demand starts at $400 per site; Business plans start at $200/mo per site — both include up to 10,000 pages. Listed rates are baseline estimates for easy-to-medium sites; final pricing depends on scope and complexity.</p></details>
+      <details class="faq"><summary>Do you sign NDAs?</summary><p>Yes — we're happy to sign a mutual NDA before discussing sensitive projects.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="band">
+      <div class="eyebrow" style="justify-content:center">Get started</div>
+      <h2>Tell us what data you need.</h2>
+      <p class="sub" style="margin:14px auto 28px"><strong style="color:var(--text)">Consultation and quotes are always free</strong> — no obligation. Send the site(s) and the fields you want, and we'll reply with a quote, usually within one business day.</p>
+      <a href="mailto:sales@skrimi.com?subject=Data%20request%20—%20Skrimi&body=Hi%20Skrimi,%0D%0A%0D%0AWebsite(s):%20%0D%0AFields%20I%20need:%20%0D%0AHow%20often:%20one-time%20/%20weekly%20/%20monthly%0D%0AEstimated%20pages:%20%0D%0A%0D%0AThanks!" class="btn btn-primary">Email us your request</a>
+      <p style="color:var(--muted);margin-top:18px;font-size:14px">or write to <a href="mailto:sales@skrimi.com" class="accent">sales@skrimi.com</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div class="logo" style="font-size:18px"><svg class="dot" viewBox="0 0 48 48" aria-hidden="true"><g fill="none" stroke="url(#skg)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 13 L6 24 L16 35"/><path d="M32 13 L42 24 L32 35"/><path d="M28 9 L20 39"/></g></svg>Skrimi</div>
+    <div style="display:flex;gap:22px;flex-wrap:wrap">
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="acceptable-use.html">Acceptable Use</a>
+      <a href="mailto:sales@skrimi.com">Contact</a>
+    </div>
+    <div>© 2026 Skrimi LLC · Chandler, AZ</div>
+  </div>
+</footer>
+
+</body>
+</html>
