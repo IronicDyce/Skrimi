@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#6366f1"/></linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#6366f1" stop-opacity="0.30"/><stop offset="1" stop-color="#6366f1" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0b1020"/>
+  <ellipse cx="600" cy="180" rx="640" ry="420" fill="url(#glow)"/>
+  <g transform="translate(484,150) scale(4.7)" fill="none" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M16 13 L6 24 L16 35" stroke="url(#g)"/><path d="M32 13 L42 24 L32 35" stroke="url(#g)"/><path d="M28 9 L20 39" stroke="#4ade80"/>
+  </g>
+  <text x="600" y="420" text-anchor="middle" font-size="92" font-weight="800" letter-spacing="-2" fill="#e8ecf6">Skrimi</text>
+  <text x="600" y="478" text-anchor="middle" font-size="34" font-weight="500"><tspan fill="#e8ecf6">Turning raw data into</tspan><tspan fill="url(#g)">&#160;business insights.</tspan></text>
+  <text x="600" y="528" text-anchor="middle" font-size="24" font-weight="500" fill="#9aa6c4">Web data · ETL pipelines · BI dashboards · Automation</text>
+  <text x="600" y="572" text-anchor="middle" font-size="22" font-weight="600" fill="#4ade80">skrimi.com</text>
+</svg>
