@@ -85,6 +85,14 @@
 
   /* cta band */
   .band{background:linear-gradient(135deg,rgba(34,211,238,.1),rgba(99,102,241,.12));border:1px solid var(--line);border-radius:24px;padding:56px;text-align:center}
+  .qform{max-width:520px;margin:28px auto 0;text-align:left;display:flex;flex-direction:column;gap:16px}
+  .qform label{font-size:14px;font-weight:600;color:var(--text);display:flex;flex-direction:column;gap:8px}
+  .qform label span{color:var(--accent)}
+  .qform input,.qform textarea{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:13px 14px;color:var(--text);font-family:inherit;font-size:15px;font-weight:400;width:100%}
+  .qform input::placeholder,.qform textarea::placeholder{color:#5f6b8a}
+  .qform input:focus,.qform textarea:focus{outline:none;border-color:var(--accent)}
+  .qform textarea{resize:vertical;line-height:1.5}
+  .qform button{margin-top:4px;cursor:pointer}
 
   footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:14px}
   .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
@@ -275,8 +283,17 @@
       <div class="eyebrow" style="justify-content:center">Get started</div>
       <h2>Tell us what data you need.</h2>
       <p class="sub" style="margin:14px auto 28px"><strong style="color:var(--text)">Consultation and quotes are always free</strong> — no obligation. Send the site(s) and the fields you want, and we'll reply with a quote, usually within one business day.</p>
-      <a href="mailto:sales@skrimi.com?subject=Data%20request%20—%20Skrimi&body=Hi%20Skrimi,%0D%0A%0D%0AWebsite(s):%20%0D%0AFields%20I%20need:%20%0D%0AHow%20often:%20one-time%20/%20weekly%20/%20monthly%0D%0AEstimated%20pages:%20%0D%0A%0D%0AThanks!" class="btn btn-primary">Email us your request</a>
-      <p style="color:var(--muted);margin-top:18px;font-size:14px">or write to <a href="mailto:sales@skrimi.com" class="accent">sales@skrimi.com</a></p>
+      <form class="qform" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="4437fc62-016a-45c6-8138-843af6f1fb9f" />
+        <input type="hidden" name="subject" value="New quote request — Skrimi" />
+        <input type="hidden" name="from_name" value="Skrimi website" />
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+        <label>Your name <span>*</span><input type="text" name="name" required placeholder="Your name" /></label>
+        <label>Work email <span>*</span><input type="email" name="email" required placeholder="you@company.com" /></label>
+        <label>Tell us about your project <span>*</span><textarea name="message" rows="5" required placeholder="Websites, the data you need, how often, estimated pages — anything relevant"></textarea></label>
+        <button type="submit" class="btn btn-primary">Get a free quote</button>
+      </form>
+      <p style="color:var(--muted);margin-top:16px;font-size:14px">Prefer email? Write to <a href="mailto:sales@skrimi.com" class="accent">sales@skrimi.com</a></p>
     </div>
   </div>
 </section>
